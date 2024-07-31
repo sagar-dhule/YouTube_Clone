@@ -3,7 +3,7 @@ import { useAppContext } from '../../useContextHook/useContextApi';
 import { fetchApiForYoutubeData } from '../../utils/fetchApi';
 import { useTheme } from '../../useContextHook/useTheme';
 import { formatDuration, formatPublishTime, formatViewCount } from '../../utils/helper';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 const RelatedVideos = ({categoryId}) => {
   const [relatedVideos,setRelatedVideos] =useState([])
@@ -21,6 +21,7 @@ const RelatedVideos = ({categoryId}) => {
             maxResults:10
            })
            setRelatedVideos(data?.items)
+           console.log(data)
         } catch (error) {
           console.error(error,'error fetching realated videos')
         }
@@ -36,8 +37,8 @@ const RelatedVideos = ({categoryId}) => {
   return (
     <div>
       {relatedVideos?.map((video)=>(
-            <Link to={`video/${video.snippet.categoryId}/${video.id}`}>
-            <div className="flex flex-col xl:flex-row gap-4  mb-8">
+            <Link to={`/video/${video.snippet.categoryId}/${video.id}`}>
+            <div className="flex flex-col xl:flex-row  mb-8">
               <div className="relative h-[200px] lg:h-[140px] w-[400px] min-w-[230px] lg:w-60 md:rounded-xl overflow-hidden">
                 <img
                   src={video?.snippet?.thumbnails?.medium?.url}
@@ -49,25 +50,20 @@ const RelatedVideos = ({categoryId}) => {
                 </span>
               </div>
               
-  
     
                 <div
-                  className={`flex flex-col ml-0 mf:ml-4 mt-2 md:mt-0 overflow-hidden `}
+                  className={`flex flex-col ml-0 md:ml-4 md:mt-0 overflow-hidden`}
                 >
-                  <h3 className={`text-lg font-bold ${
-                    isDarkMode
-                      ? " text-gray-300"
-                      : " text-gray-800 "
-                  }`}>{video?.snippet?.title}</h3>
+                  <h3 className={`text-md font-semibold ${isDarkMode ? "text-gray-300 " : "text-gray-800"}`}>{video?.snippet?.title}</h3>
                   <div
-                    className={`text-md ${
+                    className={`text-xs ${
                       isDarkMode ? "text-gray-400 " : "text-gray-600"
                     }`}
                   >
                     {video?.snippet?.channelTitle}
                   </div>
                   <div
-                    className={`text-md ${
+                    className={`text-xs ${
                       isDarkMode ? "text-gray-400 " : "text-gray-600"
                     }`}
                   >

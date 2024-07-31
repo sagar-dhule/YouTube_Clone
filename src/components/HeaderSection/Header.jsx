@@ -19,12 +19,8 @@ const Header = () => {
   const { loading, mobileMenu, setMobileMenu } = useAppContext();
   const { isDarkMode, toggleTheme } = useTheme();
   const navigate = useNavigate();
-  const {
-    listening,
-    startListening,
-    stopListening,
-    browserSupportsSpeechRecognition,
-  } = useSpeechRecognitions(setSearchQuery);
+  const {listening,stopListening,startListening,browserSupportsSpeechRecognition}= useSpeechRecognitions(setSearchQuery);
+
 
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>;
@@ -38,9 +34,6 @@ const Header = () => {
 
   const handleClearSearchQuery = () => {
     setSearchQuery("");
-    if(listening){
-      stopListening();
-    }
   };
 
   const mobileToggleMenu = () => {
@@ -128,19 +121,16 @@ const Header = () => {
           className={`flex items-center justify-center w-[40px] md:w-[60px] h-8 md:h-10 rounded-full hover:bg-${
             isDarkMode ? "gray-700" : "gray-300"
           } ml-2`}
-          onClick={() => {
-            if (listening) {
-              stopListening();
-            } else {
-              startListening();
-            }
-          }}
+           onClick={() =>{
+             if(listening){
+              stopListening()
+             }
+             else{
+              startListening()
+             }
+           }}
         >
-          {listening ? (
-            <IoMdMicOff className="text-xl" />
-          ) : (
-            <IoMdMic className="text-xl" />
-          )}
+          {listening ? <IoMdMicOff className='text-xl' /> : <IoMdMic className="text-xl" /> }
         </button>
       </div>
       <div className="flex items-center space-x-2 md:space-x-4 ">
@@ -168,18 +158,15 @@ const Header = () => {
           >
             <RiAccountCircleLine className="text-xl" />
           </button>
-          <button
-            className={`flex items-center justify-center h-10 w-10 rounded-full hover:bg-${
-              isDarkMode ? "gray-700" : "gray-300"
-            }`}
-            onClick={toggleTheme}
+          <button className={`flex items-center justify-center h-10 w-10 rounded-full hover:bg-${isDarkMode ? "gray-700" : "gray-300"}`}
+           onClick={toggleTheme}
           >
-            {isDarkMode ? (
-              <FiSun className="text-xl text-yellow-300" />
-            ) : (
-              <FiMoon className="text-xl text-gray-800" />
-            )}
-          </button>
+                 {isDarkMode ? (
+                <FiSun className="text-xl text-yellow-300"/> 
+                 ) : (
+                   <FiMoon className="text-xl text-gray-800"/>
+                 )}
+            </button>
         </div>
       </div>
     </div>
